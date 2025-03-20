@@ -1,0 +1,37 @@
+# version: "3"
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8080:80"
+            - "4433:443"
+        volumes:
+            - .:/app
+        depends_on:
+            - db
+        environment:
+            - APP_ENV=local
+            - APP_DEBUG=true
+            - DB_CONNECTION=pgsql
+            - DB_HOST=db
+            - DB_PORT=5432
+            - DB_DATABASE=xxx
+            - DB_USERNAME=root
+            - DB_PASSWORD=admin
+
+    db:
+        image: postgres:15-alpine
+        ports:
+            - "54322:5432"
+        environment:
+            - POSTGRES_DB=xxx
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=admin
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+volumes:
+    postgres_data:

@@ -1,0 +1,43 @@
+{
+    {$CADDY_GLOBAL_OPTIONS}
+
+    frankenphp {
+        {$FRANKENPHP_CONFIG}
+    }
+}
+
+:80 {
+    root * public/
+    
+    # Execute PHP files with FrankenPHP
+    php_server
+
+    # Serve static files
+    file_server
+    
+    # Handle Laravel's pretty URLs
+    @routeToIndex {
+        not path /index.php
+        file {
+            try_files {path} /index.php
+            split_path .php
+        }
+    }
+    rewrite @routeToIndex /index.php
+
+    # Basic security headers
+    header {
+        # Disable FLoC tracking
+        Permissions-Policy interest-cohort=()
+        # Enable XSS filtering
+        X-XSS-Protection "1; mode=block"
+        # Prevent MIME sniffing
+        X-Content-Type-Options nosniff
+        # Referrer policy
+        Referrer-Policy no-referrer-when-downgrade
+    }
+    
+    log {
+        format json
+    }
+}
