@@ -157,9 +157,10 @@ return [
     */
 
     'tables' => [
-        'example:1000' => [
-            'name' => 'string:1000',
-            'votes' => 'int',
+        'garbage' => [
+            'sessions',
+            'cache',
+            'laravel_notifications',
         ],
     ],
 
