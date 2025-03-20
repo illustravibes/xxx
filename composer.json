@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "Xxx",
+    "name": "laravel/xxx",
     "type": "project",
-    "description": "The boilerplate for the Xxx App.",
+    "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
